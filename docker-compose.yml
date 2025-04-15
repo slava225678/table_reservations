@@ -1,0 +1,24 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+services:
+  db:
+    image: postgres:14.8
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+      POSTGRES_DB: ${POSTGRES_DB:-table_reservations}
+    ports:
+      - '5432:5432'
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - '8000:8000'
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://admin:secret@localhost:5432/table_reservations}
+    depends_on:
+     - db
