@@ -31,7 +31,7 @@ def create_table_api(
 )
 def get_tables_api(db: Session = Depends(get_db)) -> List[TableRead]:
     '''Получение списка всех столиков.'''
-    return table_crud.get_multi(db)  # type: ignore
+    return table_crud.get_multi(db)
 
 
 @router.delete(
