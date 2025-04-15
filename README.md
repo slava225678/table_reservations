@@ -87,7 +87,7 @@ pytest tests/
 Аварийный запуск (если есть проблемы с импортами):
 
 ```bash
-PYTHONPATH=C:/FLASK_API/table_reservations pytest
+PYTHONPATH=C:/your_derectory/table_reservations pytest
 ```
 
 ---
