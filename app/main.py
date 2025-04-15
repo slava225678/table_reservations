@@ -8,7 +8,6 @@ app = FastAPI(
     description=settings.app_description
 )
 
-# Включаем общий роутер
 app.include_router(main_router)
 
 
