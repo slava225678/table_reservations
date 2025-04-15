@@ -55,7 +55,6 @@ def test_create_reservation_conflict(client):
             "duration_minutes": 1000
         }
     )
-    # assert reservation_time == '1'
     assert response.status_code == status.HTTP_200_OK, (
         f'Бронь должна создаваться корректно на уже существующий столик '
         f'В ответе ожидается status_code {status.HTTP_200_OK}, '
