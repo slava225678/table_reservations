@@ -18,7 +18,7 @@ def get_reservations_api(
     db: Session = Depends(get_db)
 ) -> List[ReservationRead]:
     '''Получение списка всех броней.'''
-    return crud_reservations.get_multi(db)  # type: ignore
+    return crud_reservations.get_multi(db)
 
 
 @router.post("/", response_model=ReservationRead)
