@@ -25,12 +25,12 @@ def validate_reservation_time(
     for reservation in existing_reservations:
         existing_start = reservation.reservation_time
         existing_end = existing_start + timedelta(
-            minutes=reservation.duration_minutes  # type: ignore
+            minutes=reservation.duration_minutes
         )
 
         if not (
             new_end <= existing_start or new_start >= existing_end
-        ):  # type: ignore
+        ):
             return True
 
     return False
