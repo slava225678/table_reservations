@@ -5,9 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.schemas.reservations import ReservationCreate, ReservationRead
-from app.services.crud_reservations import (create_reservation,
-                                            delete_reservation,
-                                            get_reservations)
+from app.services.crud_reservations import crud_reservations
 from app.services.validators import (check_reservation_conflict,
                                      check_reservation_exists,
                                      check_table_exists)
@@ -20,7 +18,7 @@ def get_reservations_api(
     db: Session = Depends(get_db)
 ) -> List[ReservationRead]:
     '''Получение списка всех броней.'''
-    return get_reservations(db)  # type: ignore
+    return crud_reservations.get_multi(db)  # type: ignore
 
 
 @router.post("/", response_model=ReservationRead)
@@ -40,7 +38,7 @@ def create_reservation_api(
         reservation.reservation_time,
         reservation.duration_minutes
     )
-    return create_reservation(db, table_id, reservation)
+    return crud_reservations.create_reservation(db, table_id, reservation)
 
 
 @router.delete("/{reservation_id}", status_code=204)
@@ -49,4 +47,5 @@ def delete_reservation_api(
 ) -> None:
     '''Удаление брони по ID.'''
     check_reservation_exists(db, reservation_id)
-    delete_reservation(db, reservation_id)
+    reservation = crud_reservations.get(reservation_id, db)
+    crud_reservations.remove(reservation, db)
